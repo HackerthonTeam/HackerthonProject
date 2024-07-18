@@ -30,7 +30,6 @@ public class Movement : MonoBehaviour
     public Vector3 dest;
     public bool isMoving = false;
     public bool isPathFinding = false;
-    IEnumerator moveRoutine;
 
     public int i = 0;
 
@@ -101,8 +100,6 @@ public class Movement : MonoBehaviour
             transform.Translate(differ/20);
             yield return new WaitForSeconds(sec / 20);
         }
-
-        moveRoutine = null;
     }
     public void PathFinding()
     {
