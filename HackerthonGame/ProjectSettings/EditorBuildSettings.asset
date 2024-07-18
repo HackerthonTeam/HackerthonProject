@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Hyun/Start_Scene.unity
+    guid: d629e5a40968beb468841e5cb8181058
+  - enabled: 1
+    path: Assets/Scenes/Hyun/Hyun.unity
+    guid: 2a7aae113f4a12346a1f68fe1caea4df
+  - enabled: 1
+    path: Assets/Scenes/Hyun/Setting_Scene.unity
+    guid: 5da81a5f1de4d9a4ebe451282728c959
+  - enabled: 1
+    path: Assets/Scenes/Hyun/Tutorial_Scene.unity
+    guid: 5bbbf6cc395b546468e2d93c5b1b27b9
   m_configObjects: {}
