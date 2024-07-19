@@ -24,7 +24,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public void BackgroundPlay(string backgroundSource,float vol){
-        this.GetComponent<AudioSource>().volume = vol/100;
+        this.GetComponent<AudioSource>().volume = vol/100f;
         this.GetComponent<AudioSource>().loop = true;
         this.GetComponent<AudioSource>().PlayOneShot(Resources.Load("Audio/"+backgroundSource,typeof(AudioClip))as AudioClip);
     }
