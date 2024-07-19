@@ -33,7 +33,6 @@ public class Movement : MonoBehaviour
 
     public int i = 0;
 
-    public GameObject npc;
     private void Update()
     {
         startPos = new Vector2Int(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
@@ -43,42 +42,12 @@ public class Movement : MonoBehaviour
             && Mathf.Round(this.transform.position.y) == Mathf.RoundToInt(dest.y)
         )
         {
-            randomPosition();
+            //도착했을때 실행할 코드
         }
     }
 
-    public void randomPosition()
-    {
-        isMoving = true;
-        System.Random rand = new System.Random();
-        while (true)
-        {
-            dest = new Vector3(
-                rand.Next(bottomLeft.x, topRight.x),
-                rand.Next(bottomLeft.y, topRight.y),
-                0
-            );
-            targetPos = new Vector2Int(Mathf.RoundToInt(dest.x), Mathf.RoundToInt(dest.y));
-            bool isWall = false;
-            foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(dest.x, dest.y), 0.4f))
-            {
-                if (col.gameObject.layer != 0) isWall = true;
-            }
-            if (!isWall)
-            {
-                break;
-            }
-        }
-        if (isPathFinding)
-        {
-            isPathFinding = false;
-            PathFinding();
-            FinalNodeList.RemoveAt(0);
-            isMoving = true;
-        }
-    }
 
-    IEnumerator NpcMove(List<Node> optimizedPath)
+    IEnumerator PlayerMove(List<Node> optimizedPath)
     {
         if (i >= optimizedPath.Count)
         {
