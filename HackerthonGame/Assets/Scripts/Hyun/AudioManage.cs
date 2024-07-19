@@ -7,10 +7,11 @@ using UnityEngine.UI;
 
 public class AudioManage : MonoBehaviour
 {
-    public AudioMixer audioMixer;  // ¿Àµð¿À ¹Í¼­¸¦ ¿¬°áÇÒ º¯¼ö
+    public AudioMixer audioMixer;  // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("MasterVol", Mathf.Log10(volume) * 20);
+        //audioMixer.SetFloat("MasterVol", Mathf.Log10(volume) * 20);
+        SoundManager.Instance.masterVol = volume;
     }
 }
