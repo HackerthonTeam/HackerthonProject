@@ -22,6 +22,7 @@ public class Movement : MonoBehaviour
 {
     public Vector2Int bottomLeft, topRight, startPos, targetPos;
     public List<Node> FinalNodeList;
+    public List<Vector2> movePath = new List<Vector2>();
     public bool allowDiagonal, dontCrossCorner;
 
     int sizeX, sizeY;
@@ -29,11 +30,12 @@ public class Movement : MonoBehaviour
     Node StartNode, TargetNode, CurNode;
     List<Node> OpenList, ClosedList;
 
-    public Vector3 dest;
+    public Vector2 dest;
     public bool isMoving = false;
     public bool isPathFinding = false;
 
     public int i = 0;
+    public float speed;
 
     private void Start()
     {
@@ -41,10 +43,13 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
-        PathFinding();
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
+            isPathFinding = false;
+            i = 0;
             dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            StartCoroutine(Path());
+            ArangeList(FinalNodeList);
         }
         startPos = new Vector2Int(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
         targetPos = new Vector2Int(Mathf.RoundToInt(dest.x), Mathf.RoundToInt(dest.y));
@@ -55,32 +60,57 @@ public class Movement : MonoBehaviour
         {
             //도착했을때 실행할 코드
         }
-        
     }
 
-
-    IEnumerator PlayerMove(List<Node> optimizedPath)
-    {
-        if (i >= optimizedPath.Count)
-        {
-            isMoving = false;
-            yield break; // 리스트의 들어있는 값 수보다 i가 높을 시 yield break
+    public void ArangeList(List<Node> path){
+        for(int i=0;i<=path.Count;i++){
+            Debug.Log(path[i].x);
+            movePath.Add(new Vector2(path[i].x,path[i].y));
         }
-        Vector3 destination = new Vector3(optimizedPath[i].x, optimizedPath[i].y, 0);
-        //Debug.Log(destination);
-        StartCoroutine(MoveTo(destination, 0.2f));
-        yield return new WaitForSeconds(0.2f);
-        i++;
+        movePath.RemoveAt(0);
+        movePath[path.Count] = new Vector2(dest.x,dest.y);
     }
+    // IEnumerator PlayerMove(List<Node> optimizedPath)
+    // {
+    //     isMoving = true;
+    //     Vector3 destination;
+    //     while (i > optimizedPath.Count)
+    //     {
+    //         if (i == optimizedPath.Count)
+    //         {
+    //             destination = dest;
+    //         }
+    //         else
+    //         {
+    //             destination = new Vector3(optimizedPath[i].x, optimizedPath[i].y, 0);
+    //         }
+    //         //Debug.Log(destination);
+    //         StartCoroutine(MoveTo(destination, 0.5f));
+    //         yield return new WaitForSeconds(0.5f);
+    //         i++;
+    //     }
+    //     yield break;
+    // }
 
-    IEnumerator MoveTo(Vector3 pos, float sec)
+    // IEnumerator MoveTo(Vector3 pos, float sec)
+    // {
+    //     Vector3 differ = pos - transform.position;
+    //     if(differ.magnitude>1.0f){
+    //         transform.position
+    //     }
+    //     else{
+
+    //     }
+    //     for (int i = 0; i <= 20; i++)
+    //     {
+    //         transform.Translate(differ / 20);
+    //         yield return new WaitForSeconds(sec / 20);
+    //     }
+    // }
+    IEnumerator Path()
     {
-        Vector3 differ = pos - transform.position;
-        for (int i = 0; i <= 20; i++)
-        {
-            transform.Translate(differ/20);
-            yield return new WaitForSeconds(sec / 20);
-        }
+        yield return new WaitForSeconds(0.1f);
+        PathFinding();
     }
     public void PathFinding()
     {
@@ -89,8 +119,6 @@ public class Movement : MonoBehaviour
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         sizeX = topRight.x - bottomLeft.x + 1;
         sizeY = topRight.y - bottomLeft.y + 1;
-        Debug.Log(sizeX);
-        Debug.Log(sizeY);
         NodeArray = new Node[sizeX, sizeY];
 
         for (int i = 0; i < sizeX; i++)
@@ -105,7 +133,7 @@ public class Movement : MonoBehaviour
                 NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }
         }
-        
+
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
         StartNode = NodeArray[Mathf.Abs(startPos.x - bottomLeft.x), Mathf.Abs(startPos.y - bottomLeft.y)];
         TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
