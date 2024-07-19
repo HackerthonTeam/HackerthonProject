@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/ArrangedScene/StartScene.unity
     guid: f14cfd626e968e14986571fc4d920065
   - enabled: 1
+    path: Assets/Scenes/ArrangedScene/GameScene.unity
+    guid: 70063f25c540a3343b7216390e2f0526
+  - enabled: 1
     path: Assets/Scenes/MovementTest.unity
     guid: bd8233584f97a5f46a85407cff82e5c5
   m_configObjects: {}

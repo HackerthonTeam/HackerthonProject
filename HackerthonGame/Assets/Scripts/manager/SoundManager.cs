@@ -25,6 +25,9 @@ public class SoundManager : Singleton<SoundManager>
         GameObject.Find("AudioManager").GetComponent<AudioSource>().loop = true;
         GameObject.Find("AudioManager").GetComponent<AudioSource>().PlayOneShot(Resources.Load("Audio/"+backgroundSource,typeof(AudioClip))as AudioClip);
     }
+    public void BackgroundStop(){
+         GameObject.Find("AudioManager").GetComponent<AudioSource>().Stop();
+    }
     public void Awake(){
         DontDestroyOnLoad(this.gameObject);
     }
