@@ -36,6 +36,7 @@ public class Movement : MonoBehaviour
 
     public int i = 0;
     public float speed;
+    IEnumerator moveRoutine;
 
     private void Start()
     {
@@ -43,14 +44,7 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            isPathFinding = false;
-            i = 0;
-            dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            StartCoroutine(Path());
-            ArangeList(FinalNodeList);
-        }
+        dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         startPos = new Vector2Int(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
         targetPos = new Vector2Int(Mathf.RoundToInt(dest.x), Mathf.RoundToInt(dest.y));
         if (!isMoving
@@ -60,53 +54,51 @@ public class Movement : MonoBehaviour
         {
             //도착했을때 실행할 코드
         }
-    }
-
-    public void ArangeList(List<Node> path){
-        for(int i=0;i<=path.Count;i++){
-            Debug.Log(path[i].x);
-            movePath.Add(new Vector2(path[i].x,path[i].y));
+        if (Input.GetMouseButtonDown(1))
+        {
+            isPathFinding = false;
+            i = 0;
+            StartCoroutine(Path());
         }
-        movePath.RemoveAt(0);
-        movePath[path.Count] = new Vector2(dest.x,dest.y);
+        MoveTo(FinalNodeList);
     }
-    // IEnumerator PlayerMove(List<Node> optimizedPath)
-    // {
-    //     isMoving = true;
-    //     Vector3 destination;
-    //     while (i > optimizedPath.Count)
-    //     {
-    //         if (i == optimizedPath.Count)
-    //         {
-    //             destination = dest;
-    //         }
-    //         else
-    //         {
-    //             destination = new Vector3(optimizedPath[i].x, optimizedPath[i].y, 0);
-    //         }
-    //         //Debug.Log(destination);
-    //         StartCoroutine(MoveTo(destination, 0.5f));
-    //         yield return new WaitForSeconds(0.5f);
-    //         i++;
-    //     }
-    //     yield break;
-    // }
+    public void MoveTo(List<Node> list) {
+        if (moveRoutine != null) {
+            StopCoroutine(moveRoutine);
+        }
+        moveRoutine = PlayerMove(list);
 
-    // IEnumerator MoveTo(Vector3 pos, float sec)
-    // {
-    //     Vector3 differ = pos - transform.position;
-    //     if(differ.magnitude>1.0f){
-    //         transform.position
-    //     }
-    //     else{
-
-    //     }
-    //     for (int i = 0; i <= 20; i++)
-    //     {
-    //         transform.Translate(differ / 20);
-    //         yield return new WaitForSeconds(sec / 20);
-    //     }
-    // }
+        StartCoroutine(moveRoutine);
+    }
+    IEnumerator PlayerMove(List<Node> optimizedPath){
+        Vector3 pos = new();
+        if(optimizedPath.Count==0){
+            Debug.Log("List is Empty");//리스트가 비어있을시
+            yield break;
+        }
+        if(i>optimizedPath.Count){
+            isMoving = false;
+            yield break;//도착시
+        }
+        for(i=0;i>=optimizedPath.Count;i++){
+            pos.x=optimizedPath[i].x;
+            pos.y=optimizedPath[i].y;
+        }
+        StartCoroutine(Move(pos,speed));
+        yield return null;
+    }
+    IEnumerator Move(Vector3 pos,float speed){
+        Vector3 differ = pos-transform.position;
+        if(differ.magnitude>1.1f){
+            //대각선 이동일시
+        }
+        else{
+            //아닐시
+        }
+        yield return new WaitForSeconds(0.2f);
+        moveRoutine = null;
+    }
+    
     IEnumerator Path()
     {
         yield return new WaitForSeconds(0.1f);
