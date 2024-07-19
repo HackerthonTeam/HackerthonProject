@@ -35,7 +35,7 @@ public class Player : MonoBehaviour, ISavable
     public float radius = 3f;        
     public int numberOfRays = 20;    
     private float angleStep;
-    public float time = 3f;
+    private float time = 3f;
     private bool AttCool = true;
     void Start()
     {
@@ -115,6 +115,7 @@ public class Player : MonoBehaviour, ISavable
                 if (hit.collider != null)
                 {
                     Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
+                    Debug.Log("hit");
 
                 }
                 else
