@@ -40,7 +40,7 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(PlayerMove(FinalNodeList));
+
     }
     private void Update()
     {
@@ -56,22 +56,77 @@ public class Movement : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
+            StopAllCoroutines();
             isPathFinding = false;
             i = 0;
-            StartCoroutine(Path());
-        }
-        MoveTo(FinalNodeList);
-    }
-    public void MoveTo(List<Node> list) {
-        if (moveRoutine != null) {
-            StopCoroutine(moveRoutine);
-        }
-        moveRoutine = PlayerMove(list);
+            FinalNodeList = null;
+            PathFinding();
 
-        StartCoroutine(moveRoutine);
+            StartCoroutine(PlayerMove(FinalNodeList));
+        }
     }
-    IEnumerator PlayerMove(List<Node> optimizedPath){
-        Vector3 pos = new();
+
+
+
+
+    List<Vector2> GetRouteList(List<Node> oldList)
+    {
+        List<Vector2> newList = new List<Vector2>();
+        
+        foreach(var node in oldList)
+        {
+            newList.Add(new Vector2(node.x, node.y));
+        }
+
+        newList[0] = (Vector2)transform.position;
+        newList[newList.Count - 1] = dest;
+
+        return newList;
+    }
+
+    IEnumerator PlayerMove(List<Node> optimizedPath)
+    {
+
+        if (optimizedPath.Count <= 1) yield break;
+
+        var routeList = GetRouteList(optimizedPath);
+        int currentRoute = 0;
+
+        Vector2 playerPosition = transform.position;
+        while(currentRoute < routeList.Count)
+        {
+            print(currentRoute);
+            Vector2 moveVector = playerPosition - routeList[currentRoute];
+
+            float rotation =  Mathf.Atan2(moveVector.y, moveVector.x) * Mathf.Rad2Deg;
+
+            if (rotation > 360) rotation -= 360;
+            else if (rotation < 0) rotation += 360;
+
+            switch (rotation / 45)
+            {
+                case 0 : print("a"); break;
+                case 1 : print("b"); break;
+                case 2 : print("c"); break;
+                case 3 : print("d"); break;
+                case 4: print("e"); break;
+                case 5: print("f"); break;
+                case 6: print("g"); break;
+                case 7: print("h"); break;
+            }
+
+            if(((Vector2)transform.position - routeList[currentRoute]).magnitude <= 0.1f)
+            {
+                currentRoute++;
+                playerPosition = transform.position;
+            }
+            else transform.position -= (Vector3)(moveVector * speed * Time.deltaTime);
+
+            yield return null;
+        }
+
+
+        /*Vector3 pos = new();
         if(optimizedPath.Count==0){
             Debug.Log("List is Empty");//리스트가 비어있을시
             yield break;
@@ -85,25 +140,33 @@ public class Movement : MonoBehaviour
             pos.y=optimizedPath[i].y;
         }
         StartCoroutine(Move(pos,speed));
-        yield return null;
+        yield return null;*/
     }
-    IEnumerator Move(Vector3 pos,float speed){
+/*    IEnumerator Move(Vector3 pos,float speed){
         Vector3 differ = pos-transform.position;
         if(differ.magnitude>1.1f){
-            //대각선 이동일시
+            transform.position += new Vector3(differ.x, differ.y);
         }
         else{
-            //아닐시
+            transform.position += new Vector3(differ.x, differ.y);
         }
         yield return new WaitForSeconds(0.2f);
         moveRoutine = null;
-    }
+    }*/
     
-    IEnumerator Path()
+/*    IEnumerator Path()
     {
-        yield return new WaitForSeconds(0.1f);
+        FinalNodeList = null;
         PathFinding();
-    }
+
+        while (FinalNodeList == null)
+        {
+            yield return null;
+        }
+
+        StartCoroutine(PlayerMove(FinalNodeList));
+
+    }*/
     public void PathFinding()
     {
         isPathFinding = true;
