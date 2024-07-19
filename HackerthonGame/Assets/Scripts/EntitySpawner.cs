@@ -30,7 +30,7 @@ public class EntitySpawner : MonoBehaviour
     {
         for(int i = 0; i < amount; i++)
         {
-            Vector2 randPos = GenerateRandomPointInCircle();
+            Vector2 randPos = GenerateRandomPointInCircle() + (Vector2)transform.position;
             PoolManager.Instance.GetPool(entity.gameObject, randPos, Quaternion.identity);
         }
     }

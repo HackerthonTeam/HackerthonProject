@@ -138,7 +138,7 @@ namespace Fish1States
                 fish.animator.SetFloat("PosY", movePos.y);
 
                 Collider2D[] cols = Physics2D.OverlapCircleAll(new Vector2(currentPos.x + movePos.x, currentPos.y + movePos.y), 0.1f);
-                if (cols.Length == 1 && cols[0].gameObject.layer == 4)
+                if (cols[0].gameObject.layer == 4)
                 {
                     break;
                 }
@@ -167,7 +167,7 @@ namespace Fish1States
             Vector2 trackerVector = player.transform.position - entity.transform.position;
             targetPos = (Vector2)entity.transform.position + (trackerVector * -1).normalized;
             Collider2D[] cols = Physics2D.OverlapCircleAll(targetPos, 0.1f);
-            if (cols.Length == 1 && cols[0].gameObject.layer == 4)
+            if (cols[0].gameObject.layer == 4)
             {
                 movePos = targetPos - (Vector2)entity.transform.position;
             }

@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
     bool IsOnWater()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.1f);
-        if(cols.Length == 1 && cols[0].gameObject.layer == 4)
+        if(cols[0].gameObject.layer == 4)
         {
             return true;
         }

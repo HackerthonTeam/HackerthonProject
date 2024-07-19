@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -183143310, guid: bd96ee0af61ab094d813ca206725fd51, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
     hp: 0
     speed: 0
     chaseDistance: 0
-  dropItem: {fileID: 0}
+  dropItem: {fileID: 7824563558118686100, guid: c81d93aa2e867bf4cb2ad5b414627a4c, type: 3}
   animator: {fileID: 0}
 --- !u!95 &4152056945112131132
 Animator:
