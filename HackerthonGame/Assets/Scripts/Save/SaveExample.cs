@@ -7,20 +7,7 @@ public class SaveExample : MonoBehaviour, ISavable
 {
     public int count = 0;
     float curTime = 0;
-
     public TestClass testClass = new TestClass();
-
-    private void Update()
-    {
-        curTime += Time.deltaTime;
-        if (curTime > 1)
-        {
-            curTime = 0;
-            count++;
-            testClass.num += 10;
-            testClass.name = "ABC" + count.ToString();
-        }
-    }
 
     public void LoadData(Database data)
     {
@@ -32,6 +19,18 @@ public class SaveExample : MonoBehaviour, ISavable
     {
         data.count = count;
         data.testClass = testClass;
+    }
+
+    private void Update()
+    {
+        curTime += Time.deltaTime;
+        if (curTime > 1)
+        {
+            curTime = 0;
+            count++;
+            testClass.num += 10;
+            testClass.name = "ABC" + count.ToString();
+        }
     }
 }
 

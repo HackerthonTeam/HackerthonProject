@@ -1,7 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+[Serializable]
+public class PlayerData
+{
+    private int health;
+    public int Health => health;
+
+    private float moveSpeed;
+    public float MoveSpeed => moveSpeed;
+
+    private float stemina;
+    public float Stemina => stemina;
+
+    private float temperature;
+    public float Temperature => temperature;
+
+    private float hunger;
+    public float Hunger => hunger;
+}
 
 public class Player : MonoBehaviour
 {
