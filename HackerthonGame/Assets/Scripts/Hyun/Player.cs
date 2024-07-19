@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
     void Reduce()
     {
         playerData.Hunger -= 0.002f;
-        playerData.Stemina += 0.01f;
+        playerData.Stemina += 0.5f;
         playerData.Health += 0.005f;
 
         if(playerData.Temperature > 60)
