@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9308bd0106c0e8941be958e638d27950
+guid: 55eaf20e2e9596546a70418bc8cbe8e6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 5_0
+      name: KakaoTalk_20240720_030341964_02_0
       rect:
         serializedVersion: 2
-        x: 76
-        y: 96
-        width: 92
-        height: 132
+        x: 74
+        y: 77
+        width: 127
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,8 +111,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e45a7f676b3eda0498d18e8d0845a805
-      internalID: -1611723979
+      spriteID: ec21d5cc503a79d46aaf9f93c10d5437
+      internalID: -1043743839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KakaoTalk_20240720_030341964_02_2
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 192
+        width: 4
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc9b750d3c56def4181fc21fc373b453
+      internalID: 1016555249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KakaoTalk_20240720_030341964_02_4
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 100
+        width: 4
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e5a5953e0fe83240b986dbfd8016ace
+      internalID: -1441304704
       vertices: []
       indices: 
       edges: []
@@ -128,7 +170,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      5_0: -1611723979
+      KakaoTalk_20240720_030341964_02_0: -1043743839
+      KakaoTalk_20240720_030341964_02_1: -1847582578
+      KakaoTalk_20240720_030341964_02_2: 1016555249
+      KakaoTalk_20240720_030341964_02_3: 288591701
+      KakaoTalk_20240720_030341964_02_4: -1441304704
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

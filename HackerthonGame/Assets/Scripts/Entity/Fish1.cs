@@ -28,7 +28,7 @@ public class Fish1 : BaseEntity
 
     public Item dropItem;
 
-    Animator animator;
+    public Animator animator;
 
     public void Awake()
     {
@@ -41,7 +41,7 @@ public class Fish1 : BaseEntity
         fish1Data.speed = 0.5f;
         fish1Data.chaseDistance = 5;
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        animator = gameObject.AddComponent<Animator>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     public void Update()
@@ -58,6 +58,7 @@ public class Fish1 : BaseEntity
             lastHp = fish1Data.hp;
         }
         lastDamaged += Time.deltaTime;
+        
 
     }
 
@@ -91,8 +92,11 @@ namespace Fish1States
         float randWait;
         Vector2 movePos = Vector2.zero;
         Vector2 targetPos = Vector2.zero;
+
+        Fish1 fish;
         public override void Enter(Fish1 entity)
         {
+            fish = entity;  
             randWait = UnityEngine.Random.Range(6f, 10f);
         }
         public override void Execute(Fish1 entity)
@@ -130,8 +134,11 @@ namespace Fish1States
             while (count <= 10)
             {
                 movePos = new Vector2(UnityEngine.Random.Range(-1, 2), UnityEngine.Random.Range(-1, 2));
+                fish.animator.SetFloat("PosX",movePos.x);
+                fish.animator.SetFloat("PosY", movePos.y);
+
                 Collider2D[] cols = Physics2D.OverlapCircleAll(new Vector2(currentPos.x + movePos.x, currentPos.y + movePos.y), 0.1f);
-                if (cols.Length == 1 && cols[0].gameObject.layer == 3)
+                if (cols.Length == 1 && cols[0].gameObject.layer == 4)
                 {
                     break;
                 }
@@ -145,9 +152,11 @@ namespace Fish1States
     public class Chase : State<Fish1>
     {
         Player player;
+        Fish1 fish;
         Vector2 movePos = Vector2.zero, targetPos = Vector2.zero;
         public override void Enter(Fish1 entity)
         {
+            fish = entity;
             if(!player)
             {
                 player = GameObject.FindWithTag("Player").GetComponent<Player>();
@@ -171,10 +180,18 @@ namespace Fish1States
                 {
                     movePos = Vector2.zero;
                 }
-                else entity.transform.position += (Vector3)movePos * Time.deltaTime * entity.Fish1Data.speed;
-            }
+                else
+                {
+                    entity.transform.position += (Vector3)movePos * Time.deltaTime * entity.Fish1Data.speed;
+                    fish.animator.SetFloat("PosX", movePos.x);
+                    fish.animator.SetFloat("PosY", movePos.y);
+                }
 
-        }
+    
+
+                }
+
+            }
         public override void Exit(Fish1 entity)
         {
 
