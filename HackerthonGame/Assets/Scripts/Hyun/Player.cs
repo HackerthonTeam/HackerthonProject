@@ -46,6 +46,8 @@ private float j=0;
     Animator animator;
     bool isatt = false;
 
+    public GameObject bubble;
+
     void Start()
     {
         angleStep = 180f / numberOfRays; // ����ĳ��Ʈ ���� ���� ���
@@ -73,7 +75,7 @@ private float j=0;
     void Reduce()
     {
         playerData.Hunger -= 0.002f;
-        playerData.Stemina += 0.01f;
+        playerData.Stemina += 0.5f;
         playerData.Health += 0.005f;
 
         if(playerData.Temperature > 60)
@@ -87,6 +89,10 @@ private float j=0;
         if(IsOnWater())
         {
             playerData.Temperature += 0.05f;
+            bubble.SetActive(true);
+        }
+        else{
+            bubble.SetActive(false);
         }
         if(playerData.Hunger <= 10)
         {
@@ -101,7 +107,7 @@ private float j=0;
     bool IsOnWater()
     {
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.1f);
-        if(cols.Length == 1 && cols[0].gameObject.layer == 4)
+        if(cols[0].gameObject.layer == 4)
         {
             return true;
         }
