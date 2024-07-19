@@ -10,7 +10,7 @@ public class GameManager : Singleton<SoundManager>
     public GameObject onon,toto,trtr;
     //�� 3���� �ۺ������� �޾ƿ�
 
-    float curTime = 0;
+    public float curTime = 0;
     void Start()
     {
         one.SetActive(true);

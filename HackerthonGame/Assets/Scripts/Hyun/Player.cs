@@ -43,6 +43,8 @@ public class Player : MonoBehaviour
     public Image hungerUi;
     public Image temperatureUi;
 
+    public GameObject bubble;
+
     void Start()
     {
         angleStep = 180f / numberOfRays; // ����ĳ��Ʈ ���� ���� ���
@@ -82,6 +84,10 @@ public class Player : MonoBehaviour
         if(IsOnWater())
         {
             playerData.Temperature += 0.05f;
+            bubble.SetActive(true);
+        }
+        else{
+            bubble.SetActive(false);
         }
         if(playerData.Hunger <= 10)
         {
