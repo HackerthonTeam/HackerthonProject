@@ -5,27 +5,43 @@ using UnityEngine;
 public class GameManager : Singleton<SoundManager>
 {
     public GameObject Player;
-    //¸Ê 3°¡Áö ÆÛºí¸¯À¸·Î ¹Þ¾Æ¿È
+    public GameObject one,two,tre;
+    public GameObject one1,two1,tr1e;
+    public GameObject onon,toto,trtr;
+    //ï¿½ï¿½ 3ï¿½ï¿½ï¿½ï¿½ ï¿½Ûºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
 
     float curTime = 0;
     void Start()
     {
-        
+        one.SetActive(true);
+        one1.SetActive(true);
+        onon.SetActive(true);
     }
     bool a = false, b = false;
     void Update()
     {
         curTime += Time.deltaTime;
-
         if(curTime > 240 && !a)
         {
             a = true;
-            //2´Ü°è ¸Ê
+            one.SetActive(false);
+            one1.SetActive(false);
+            onon.SetActive(false);
+            two.SetActive(true);
+            two1.SetActive(true);
+            toto.SetActive(true);
+            //2ï¿½Ü°ï¿½ ï¿½ï¿½
         }
         else if(curTime > 500 && !b)
         {
             b = true;
-            //3´Ü°è ¸Ê
+            two.SetActive(false);
+            two1.SetActive(false);
+            toto.SetActive(false);
+            tre.SetActive(true);
+            tr1e.SetActive(true);
+            trtr.SetActive(true);
+            //3ï¿½Ü°ï¿½ ï¿½ï¿½
         }
     }
 }
