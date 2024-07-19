@@ -102,7 +102,6 @@ public class Movement : MonoBehaviour
                 {
                     if (col.gameObject.layer == LayerMask.NameToLayer("Wall")) isWall = true;
                 }
-
                 NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }
         }

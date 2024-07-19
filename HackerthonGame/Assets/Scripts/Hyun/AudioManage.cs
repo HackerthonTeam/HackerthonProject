@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class AudioManage : MonoBehaviour
 {
-    public AudioMixer audioMixer;  // ����� �ͼ��� ������ ����
+    //public AudioMixer audioMixer;  // ����� �ͼ��� ������ ����
 
     public void SetVolume(float volume)
     {
