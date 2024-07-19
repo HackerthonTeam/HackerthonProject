@@ -17,7 +17,7 @@ public class LoadingScene : MonoBehaviour
 
     IEnumerator LoadAsyncSceneCoroutine()
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync("Hyun");
+        AsyncOperation operation = SceneManager.LoadSceneAsync("Main");
         operation.allowSceneActivation = false;
 
         while (!operation.isDone)

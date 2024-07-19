@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MovementTest.unity
     guid: bd8233584f97a5f46a85407cff82e5c5
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 1dd77cb7673caab478e160257913679b
+  - enabled: 1
+    path: Assets/Scenes/Hyun/Load_Scene.unity
+    guid: 92267633d1bdc614aab17fce6dde79b5
   m_configObjects: {}

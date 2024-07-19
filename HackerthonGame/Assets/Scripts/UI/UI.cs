@@ -14,7 +14,7 @@ public class UI : MonoBehaviour
         Application.Quit();
     }
     public void Play(){
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Load_Scene");
     }
     public void PanelQuit(){
         panel.SetActive(false);
