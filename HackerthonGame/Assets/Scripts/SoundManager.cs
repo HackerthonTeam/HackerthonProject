@@ -21,8 +21,11 @@ public class SoundManager : Singleton<SoundManager>
     }
 
     public void BackgroundPlay(string backgroundSource,float vol){
-        this.GetComponent<AudioSource>().volume = (vol/100f)*(masterVol);
-        this.GetComponent<AudioSource>().loop = true;
-        this.GetComponent<AudioSource>().PlayOneShot(Resources.Load("Audio/"+backgroundSource,typeof(AudioClip))as AudioClip);
+        GameObject.Find("AudioManager").GetComponent<AudioSource>().volume = (vol/100f)*(masterVol);
+        GameObject.Find("AudioManager").GetComponent<AudioSource>().loop = true;
+        GameObject.Find("AudioManager").GetComponent<AudioSource>().PlayOneShot(Resources.Load("Audio/"+backgroundSource,typeof(AudioClip))as AudioClip);
+    }
+    public void Awake(){
+        DontDestroyOnLoad(this.gameObject);
     }
 }
