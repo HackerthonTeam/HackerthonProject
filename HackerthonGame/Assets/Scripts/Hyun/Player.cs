@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public List<bool> Status = new List<bool>(); 
     public float radius = 3f;        
     public int numberOfRays = 20;    
     private float angleStep;

@@ -89,8 +89,6 @@ public class Movement : MonoBehaviour
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         sizeX = topRight.x - bottomLeft.x + 1;
         sizeY = topRight.y - bottomLeft.y + 1;
-        Debug.Log(sizeX);
-        Debug.Log(sizeY);
         NodeArray = new Node[sizeX, sizeY];
 
         for (int i = 0; i < sizeX; i++)
