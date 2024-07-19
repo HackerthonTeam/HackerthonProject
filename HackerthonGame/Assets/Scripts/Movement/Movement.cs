@@ -37,11 +37,15 @@ public class Movement : MonoBehaviour
 
     public int i = 0;
     public float speed;
+    private float PosX;
+    private float PosY;
+
+    Animator animator;
     IEnumerator moveRoutine;
 
     private void Start()
     {
-
+        animator = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -101,30 +105,28 @@ public class Movement : MonoBehaviour
 
             float rotation =  Mathf.Atan2(moveVector.y, moveVector.x) * Mathf.Rad2Deg;
 
-            if (rotation > 360) rotation -= 360;
-            else if (rotation < 0) rotation += 360;
+            if (rotation > 360) rotation -= 360;//180
+            else if (rotation < 0) rotation += 360;//-180
 
-            switch (rotation / 45)
-            {
-                case 0 : print("a"); break;
-                case 1 : print("b"); break;
-                case 2 : print("c"); break;
-                case 3 : print("d"); break;
-                case 4: print("e"); break;
-                case 5: print("f"); break;
-                case 6: print("g"); break;
-                case 7: print("h"); break;
-            }
 
-            if(((Vector2)transform.position - routeList[currentRoute]).magnitude <= 0.1f)
+
+            if (((Vector2)transform.position - routeList[currentRoute]).magnitude <= 0.1f)
             {
                 currentRoute++;
                 playerPosition = transform.position;
             }
-            else transform.position -= (Vector3)(moveVector * speed * Time.deltaTime);
+            else
+            {
+                transform.position -= (Vector3)(moveVector.normalized * speed * Time.deltaTime);
+                animator.SetBool("IsMove", true);
+            }
+
+                animator.SetFloat("PosY", -moveVector.y);
+            animator.SetFloat("PosX",-moveVector.x);
 
             yield return null;
         }
+        animator.SetBool("IsMove", false);
 
 
         /*Vector3 pos = new();

@@ -6,11 +6,10 @@ using UnityEngine.UIElements;
 
 public class Item : MonoBehaviour
 {
-
     public float acquireDistance;
     public GameObject ui;
-    public Vector2 itemPos;
     protected Player player;
+
     private void Start()
     {
         ui = transform.Find("Ui").gameObject;
