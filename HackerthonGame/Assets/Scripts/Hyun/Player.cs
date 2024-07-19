@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerData
 {
     private int health;
-    public int Health { get => health; set => health = value; }
+    public int Health { get => health; set { health = Mathf.Clamp(value, 0, 100); } }
 
     private float moveSpeed;
     public float MoveSpeed {get => moveSpeed; set => moveSpeed = value; }
@@ -22,10 +22,10 @@ public class PlayerData
     public float TemperatureDurability {get => temperatureDurability; set => temperatureDurability = value; }
 
     private float hunger;
-    public float Hunger => hunger;
+    public float Hunger { get => hunger; set => hunger = value; }
 }
 
-public class Player : MonoBehaviour, ISavable
+public class Player : MonoBehaviour
 {
     PlayerData playerData = new();
     public PlayerData PlayerData => playerData;
@@ -126,13 +126,4 @@ public class Player : MonoBehaviour, ISavable
         }
     }
 
-    public void LoadData(Database data)
-    {
-        playerData = data.playerData;
-    }
-
-    public void SaveData(ref Database data)
-    {
-        data.playerData = playerData;
-    }
 }

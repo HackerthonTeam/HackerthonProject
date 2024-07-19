@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour
         foreach (var item in manager.items)
         {
             float distance = (item.transform.position - player.transform.position).magnitude;
-            if (distance < item.itemData.acquireDistance && distance < closeDistance && item != currentItem)
+            if (distance < item.acquireDistance && distance < closeDistance && item != currentItem)
             {
                 itemUiIndicates = item;
                 closeDistance = distance;
@@ -42,9 +42,9 @@ public class Inventory : MonoBehaviour
         {
             if(item == itemUiIndicates)
             {
-                item.itemData.ui.SetActive(true);
+                item.ui.SetActive(true);
             }
-            else item.itemData.ui.SetActive(false);
+            else item.ui.SetActive(false);
         }
     }
 
