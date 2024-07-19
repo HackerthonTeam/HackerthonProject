@@ -6,8 +6,8 @@ using UnityEngine;
 [Serializable]
 public class PlayerData
 {
-    private int health;
-    public int Health { get => health; set { health = Mathf.Clamp(value, 0, 100); } }
+    private float health;
+    public float Health { get => health; set { health = Mathf.Clamp(value, 0, 100); } }
 
     private float moveSpeed;
     public float MoveSpeed {get => moveSpeed; set => moveSpeed = value; }
@@ -39,13 +39,13 @@ public class Player : MonoBehaviour
     private bool AttCool = true;
     void Start()
     {
-        angleStep = 180f / numberOfRays; // ·¹ÀÌÄ³½ºÆ® °£ÀÇ °¢µµ °è»ê
+        angleStep = 180f / numberOfRays; // ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     }
 
     void Update()
     {
-        attack();  // °ø°Ý µ¿ÀÛÀ» ¼öÇà
-        castRays();// ·¹ÀÌÄ³½ºÆ®¸¦ ¹ß»ç
+        attack();  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        castRays();// ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß»ï¿½
         time +=  Time.deltaTime;
 
         if(time >= 3)
@@ -88,9 +88,9 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) )
         {
-            // ¸¶¿ì½º À§Ä¡¿Í ÇÃ·¹ÀÌ¾î À§Ä¡ °£ÀÇ º¤ÅÍ¸¦ °è»ê
+            // ï¿½ï¿½ï¿½ì½º ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½
             Vector2 dis = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            // ÇÃ·¹ÀÌ¾îÀÇ ¹æÇâÀ» ¸¶¿ì½º À§Ä¡¸¦ ±âÁØÀ¸·Î È¸Àü
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½º ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dis.y, dis.x) * Mathf.Rad2Deg);
             
         }
@@ -102,11 +102,11 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < numberOfRays; i++)
             {
-                // °¢ ·¹ÀÌÄ³½ºÆ®ÀÇ °¢µµ¸¦ °è»ê
+                // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                 float angle = -90 + (i * angleStep);
 
-                // ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç È¸Àü ¹æÇâÀ» ±âÁØÀ¸·Î °¢µµ¸¦ Àû¿ëÇÏ¿© ·¹ÀÌÄ³½ºÆ® ¹æÇâ °è»ê
-                Vector3 direction = Quaternion.Euler(0, 0, angle) * -transform.right; // ¹æÇâÀ» µÚÁý±â À§ÇØ `-transform.right` »ç¿ë
+                // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+                Vector3 direction = Quaternion.Euler(0, 0, angle) * -transform.right; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ `-transform.right` ï¿½ï¿½ï¿½
 
                 Ray ray = new Ray(transform.position, direction);
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, radius);
