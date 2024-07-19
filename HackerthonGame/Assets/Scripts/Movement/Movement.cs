@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Node
@@ -33,8 +35,17 @@ public class Movement : MonoBehaviour
 
     public int i = 0;
 
+    private void Start()
+    {
+        //StartCoroutine(PlayerMove(FinalNodeList));
+    }
     private void Update()
     {
+        PathFinding();
+        if(Input.GetMouseButtonDown(1))
+        {
+            dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
         startPos = new Vector2Int(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
         targetPos = new Vector2Int(Mathf.RoundToInt(dest.x), Mathf.RoundToInt(dest.y));
         if (!isMoving
@@ -44,6 +55,7 @@ public class Movement : MonoBehaviour
         {
             //도착했을때 실행할 코드
         }
+        
     }
 
 
@@ -77,6 +89,8 @@ public class Movement : MonoBehaviour
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         sizeX = topRight.x - bottomLeft.x + 1;
         sizeY = topRight.y - bottomLeft.y + 1;
+        Debug.Log(sizeX);
+        Debug.Log(sizeY);
         NodeArray = new Node[sizeX, sizeY];
 
         for (int i = 0; i < sizeX; i++)
@@ -92,9 +106,9 @@ public class Movement : MonoBehaviour
                 NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }
         }
-
+        
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
-        StartNode = NodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
+        StartNode = NodeArray[Mathf.Abs(startPos.x - bottomLeft.x), Mathf.Abs(startPos.y - bottomLeft.y)];
         TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
 
         OpenList = new List<Node>() { StartNode };
