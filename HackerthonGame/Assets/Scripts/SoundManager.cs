@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
     [Range(0,100f)]public float masterVol;
     public void SoundPlay(GameObject gameObject,string audioSourceName,float vol,bool isLoop){
         AudioClip audio = Resources.Load("Audio/"+audioSourceName,typeof(AudioClip))as AudioClip;
-        gameObject.GetComponent<AudioSource>().volume = (vol/100f)/(masterVol/100f);
+        gameObject.GetComponent<AudioSource>().clip = audio;
+        gameObject.GetComponent<AudioSource>().volume = (vol/100f)*(masterVol/100f);
         gameObject.GetComponent<AudioSource>().loop = isLoop;
         gameObject.GetComponent<AudioSource>().PlayOneShot(audio);
     }
