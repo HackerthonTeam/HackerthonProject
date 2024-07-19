@@ -56,6 +56,8 @@ public class Fish1 : BaseEntity
         {
             lastDamaged = 0;
             lastHp = fish1Data.hp;
+
+            if (fish1Data.hp <= 0) ChangeState(Fish1State.Dead);
         }
         lastDamaged += Time.deltaTime;
         
@@ -203,6 +205,7 @@ namespace Fish1States
         public override void Enter(Fish1 entity)
         {
             entity.fish1Data.speed = 0;
+            entity.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
             PoolManager.Instance.GetPool(entity.dropItem.gameObject, entity.transform.position, Quaternion.identity);
         }
         public override void Execute(Fish1 entity)

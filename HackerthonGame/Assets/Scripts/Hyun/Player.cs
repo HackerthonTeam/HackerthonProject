@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,7 +35,7 @@ public class Player : MonoBehaviour
     public float radius = 3f;        
     public int numberOfRays = 20;    
     private float angleStep;
-    private float time = 3f;
+    private float time = 1.5f;
     private bool AttCool = true;
     private Vector2 dis = new Vector2();
 
@@ -177,16 +178,21 @@ private float j=0;
                 Vector3 direction = Quaternion.Euler(0, 0, angle) * Vector3.right;
 
                 Ray ray = new Ray(transform.position, direction);
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, radius);
+                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, radius);
 
-                if (hit.collider != null)
+                bool isDamaged = false;
+                foreach (var hit in  hits)
                 {
-                    Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
-                    Debug.Log("hit");
+                    if (isDamaged) break;
+                    if(hit.collider.tag == "Fish")
+                    {
+                        isDamaged = true;
+                        hit.collider.gameObject.GetComponent<Fish1>().fish1Data.hp -= 10;
+                    }
                 }
-                else
+                if (isDamaged)
                 {
-                    Debug.DrawRay(ray.origin, ray.direction * radius, Color.green);
+                    break;
                 }
             }
 
