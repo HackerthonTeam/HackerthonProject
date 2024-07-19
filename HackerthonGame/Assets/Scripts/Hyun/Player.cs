@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     private float angleStep;
     private float time = 3f;
     private bool AttCool = true;
+    private Vector2 dis = new Vector2();
     void Start()
     {
         angleStep = 180f / numberOfRays; // ����ĳ��Ʈ ���� ���� ���
@@ -89,9 +90,9 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0) )
         {
             // ���콺 ��ġ�� �÷��̾� ��ġ ���� ���͸� ���
-            Vector2 dis = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dis = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             // �÷��̾��� ������ ���콺 ��ġ�� �������� ȸ��
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dis.y, dis.x) * Mathf.Rad2Deg);
+            //transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dis.y, dis.x) * Mathf.Rad2Deg);
             
         }
     }
@@ -100,29 +101,30 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && AttCool)
         {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 directionToMouse = (mousePosition - transform.position).normalized;
+
+            float baseAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+
             for (int i = 0; i < numberOfRays; i++)
             {
-                // �� ����ĳ��Ʈ�� ������ ���
-                float angle = -90 + (i * angleStep);
-
-                // �÷��̾��� ���� ȸ�� ������ �������� ������ �����Ͽ� ����ĳ��Ʈ ���� ���
-                Vector3 direction = Quaternion.Euler(0, 0, angle) * -transform.right; // ������ ������ ���� `-transform.right` ���
+                float angle = baseAngle + (-numberOfRays / 2 + i) * angleStep;
+                Vector3 direction = Quaternion.Euler(0, 0, angle) * Vector3.right;
 
                 Ray ray = new Ray(transform.position, direction);
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, radius);
-
 
                 if (hit.collider != null)
                 {
                     Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
                     Debug.Log("hit");
-
                 }
                 else
                 {
                     Debug.DrawRay(ray.origin, ray.direction * radius, Color.green);
                 }
             }
+
             AttCool = false;
         }
     }
