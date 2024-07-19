@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class Inventory : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class Inventory : MonoBehaviour
     ItemManager manager;
     Player player;
     Item itemUiIndicates;
+    public Image ui;
 
     private void Start()
     {
@@ -23,6 +23,8 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && currentItem == null) AcquireItem();
         if (Input.GetKeyDown(KeyCode.E) && currentItem != null) UseItem();
         if (Input.GetKeyDown(KeyCode.Q) && currentItem != null) DropItem();
+
+        UpdateUi();
     }
 
     void CheckItem()
@@ -70,5 +72,18 @@ public class Inventory : MonoBehaviour
         currentItem.transform.position = transform.position;
         currentItem.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         currentItem = null;
+    }
+
+    void UpdateUi()
+    {
+        if (currentItem)
+        {
+            ui.gameObject.SetActive(true);
+            ui.sprite = currentItem.gameObject.GetComponent<SpriteRenderer>().sprite;
+        }
+        else
+        {
+            ui.gameObject.SetActive(false);
+        }
     }
 }

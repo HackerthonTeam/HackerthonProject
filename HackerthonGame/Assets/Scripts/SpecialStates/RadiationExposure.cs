@@ -12,7 +12,6 @@ public class RadiationExposure : SpecialState
         base.OnAdded();
         player.PlayerData.Health*=0.7f;
         player.PlayerData.Stemina*=0.7f;
-        player.PlayerData.TemperatureDurability*=0.7f;
         player.PlayerData.Hunger*=0.7f;
     }
     public override void OnUpdated()
@@ -26,7 +25,6 @@ public class RadiationExposure : SpecialState
     {
         player.PlayerData.Hunger /= 0.7f;
         player.PlayerData.Stemina/=0.7f;
-        player.PlayerData.TemperatureDurability/=0.7f;
         player.PlayerData.Health/=0.7f;
     }
 }

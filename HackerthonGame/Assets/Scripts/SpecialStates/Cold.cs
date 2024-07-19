@@ -14,14 +14,11 @@ public class Cold : SpecialState
     public override void OnAdded()
     {
         base.OnAdded();
-
-        player.PlayerData.TemperatureDurability *= 0.7f;
         player.PlayerData.Stemina *= 0.5f;
     }
 
     public override void OnRemoved()
     {
-        player.PlayerData.TemperatureDurability /= 0.7f;
         player.PlayerData.Stemina /= 0.5f;
     }
 }

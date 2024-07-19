@@ -124,6 +124,8 @@ public class Movement : MonoBehaviour
                 animator.SetFloat("PosY", -moveVector.y);
             animator.SetFloat("PosX",-moveVector.x);
 
+            GetComponent<Player>().PlayerData.Stemina -= 0.1f;
+
             yield return null;
         }
         animator.SetBool("IsMove", false);

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 [Serializable]
 public class PlayerData
 {
@@ -17,9 +18,6 @@ public class PlayerData
 
     private float temperature;
     public float Temperature { get => temperature; set => temperature = value; }
-
-    private float temperatureDurability;
-    public float TemperatureDurability {get => temperatureDurability; set => temperatureDurability = value; }
 
     private float hunger;
     public float Hunger { get => hunger; set => hunger = value; }
@@ -55,6 +53,37 @@ public class Player : MonoBehaviour
         }
 
         ManageState();
+        Reduce();
+    }
+
+    void Reduce()
+    {
+        playerData.Hunger -= 0.002f;
+        playerData.Stemina += 0.01f;
+        playerData.Health += 0.005f;
+
+        if(playerData.Temperature > 60)
+        {
+            int rand = UnityEngine.Random.Range(0, 100);
+            if(rand == 0)
+            {
+                addedStates.Add(new Cold());
+            }
+        }
+        if(IsOnWater())
+        {
+            playerData.Temperature += 0.05f;
+        }
+    }
+
+    bool IsOnWater()
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 0.1f);
+        if(cols.Length == 1 && cols[0].gameObject.layer == 4)
+        {
+            return true;
+        }
+        return false;
     }
 
     void ManageState()
