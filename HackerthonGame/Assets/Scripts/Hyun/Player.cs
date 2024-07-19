@@ -7,24 +7,31 @@ using UnityEngine;
 public class PlayerData
 {
     private int health;
-    public int Health => health;
+    public int Health { get => health; set => health = value; }
 
     private float moveSpeed;
-    public float MoveSpeed => moveSpeed;
+    public float MoveSpeed {get => moveSpeed; set => moveSpeed = value; }
 
     private float stemina;
-    public float Stemina => stemina;
+    public float Stemina { get => stemina; set => stemina = value; }
 
     private float temperature;
-    public float Temperature => temperature;
+    public float Temperature { get => temperature; set => temperature = value; }
+
+    private float temperatureDurability;
+    public float TemperatureDurability {get => temperatureDurability; set => temperatureDurability = value; }
 
     private float hunger;
     public float Hunger => hunger;
 }
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ISavable
 {
-    public List<bool> Status = new List<bool>(); 
+    PlayerData playerData = new();
+    public PlayerData PlayerData => playerData;
+
+    public List<SpecialState> currentStates = new List<SpecialState>(); 
+    public List<SpecialState> addedStates = new List<SpecialState>(); 
     public float radius = 3f;        
     public int numberOfRays = 20;    
     private float angleStep;
@@ -46,6 +53,34 @@ public class Player : MonoBehaviour
             AttCool = true;
             time = 0;
         }
+
+        ManageState();
+    }
+
+    void ManageState()
+    {
+        foreach(SpecialState state in addedStates)
+        {
+            currentStates.Add(state);
+        }
+        addedStates.Clear();
+
+        foreach (SpecialState state in currentStates)
+        {
+            state.OnUpdated();
+            state.duration -= Time.deltaTime;
+        }
+
+        foreach (SpecialState state in currentStates)
+        {
+            if(state.duration <= 0)
+            {
+                state.OnRemoved();
+                currentStates.Remove(state);
+            }
+        }
+
+
     }
     
 
@@ -89,5 +124,15 @@ public class Player : MonoBehaviour
             }
             AttCool = false;
         }
+    }
+
+    public void LoadData(Database data)
+    {
+        playerData = data.playerData;
+    }
+
+    public void SaveData(ref Database data)
+    {
+        data.playerData = playerData;
     }
 }

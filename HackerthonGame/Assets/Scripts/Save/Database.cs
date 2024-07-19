@@ -13,10 +13,13 @@ public class Database
 
     public List<Item> items;
 
+    public PlayerData playerData;
+
     //초기값 설정
     public Database()
     {
         count = 0; 
         items = new List<Item>();
+        playerData = new();
     }
 }
