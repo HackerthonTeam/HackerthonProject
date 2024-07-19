@@ -11,7 +11,7 @@ public class Database
     public int count;
     public TestClass testClass;
 
-    public List<Item> items;
+    public List<ItemData> itemsData;
 
     public PlayerData playerData;
 
@@ -19,7 +19,7 @@ public class Database
     public Database()
     {
         count = 0; 
-        items = new List<Item>();
+        itemsData = new List<ItemData>();
         playerData = new();
     }
 }

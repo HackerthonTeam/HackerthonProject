@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour
         foreach (var item in manager.items)
         {
             float distance = (item.transform.position - player.transform.position).magnitude;
-            if (distance < item.acquireDistance && distance < closeDistance && item != currentItem)
+            if (distance < item.itemData.acquireDistance && distance < closeDistance && item != currentItem)
             {
                 itemUiIndicates = item;
                 closeDistance = distance;
@@ -42,9 +42,9 @@ public class Inventory : MonoBehaviour
         {
             if(item == itemUiIndicates)
             {
-                item.ui.SetActive(true);
+                item.itemData.ui.SetActive(true);
             }
-            else item.ui.SetActive(false);
+            else item.itemData.ui.SetActive(false);
         }
     }
 
@@ -59,7 +59,7 @@ public class Inventory : MonoBehaviour
     void UseItem()
     {
         currentItem.OnUsed();
-        currentItem.gameObject.SetActive(false);
+        currentItem.gameObject.SetActive(false); //풀메니저 리무브 풀
         currentItem = null;
     }
 
@@ -67,5 +67,6 @@ public class Inventory : MonoBehaviour
     {
         currentItem.transform.position = transform.position;
         currentItem.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        currentItem = null;
     }
 }
