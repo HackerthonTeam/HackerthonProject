@@ -49,6 +49,11 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
+        if(Input.GetMouseButton(0))
+        {
+            StopAllCoroutines();
+            animator.SetBool("IsMove", false);
+        }
         dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         startPos = new Vector2Int(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
         targetPos = new Vector2Int(Mathf.RoundToInt(dest.x), Mathf.RoundToInt(dest.y));
@@ -69,7 +74,9 @@ public class Movement : MonoBehaviour
 
             StartCoroutine(PlayerMove(FinalNodeList));
         }
+        
     }
+
 
 
 

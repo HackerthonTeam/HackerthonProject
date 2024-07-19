@@ -42,10 +42,14 @@ public class Player : MonoBehaviour
     public Image staminaUi;
     public Image hungerUi;
     public Image temperatureUi;
+private float j=0;
+    Animator animator;
+    bool isatt = false;
 
     void Start()
     {
         angleStep = 180f / numberOfRays; // ����ĳ��Ʈ ���� ���� ���
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -53,8 +57,9 @@ public class Player : MonoBehaviour
         attack();  // ���� ������ ����
         castRays();// ����ĳ��Ʈ�� �߻�
         time +=  Time.deltaTime;
-
-        if(time >= 3)
+        
+        
+        if(time >= 3 && isatt)
         {
             AttCool = true;
             time = 0;
@@ -141,16 +146,25 @@ public class Player : MonoBehaviour
             
         }
     }
+    
 
     private void castRays()
     {
+        
         if (Input.GetMouseButtonDown(0) && AttCool)
         {
+            isatt = true;
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 directionToMouse = (mousePosition - transform.position).normalized;
 
             float baseAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
-
+            if (baseAngle < 0) baseAngle += 360;
+            Vector2 MouseAngle = GetDirectionFromAngle(baseAngle);
+            animator.SetFloat("PosX",MouseAngle.x);
+            animator.SetFloat("PosY",MouseAngle.y);
+            animator.SetBool("IsAttack", true);
+            
+            
             for (int i = 0; i < numberOfRays; i++)
             {
                 float angle = baseAngle + (-numberOfRays / 2 + i) * angleStep;
@@ -173,7 +187,13 @@ public class Player : MonoBehaviour
             AttCool = false;
         }
     }
-
+    Vector2 GetDirectionFromAngle(float angle)
+    {
+        float radian = angle * Mathf.Deg2Rad;
+        float x = Mathf.Cos(radian);
+        float y = Mathf.Sin(radian);
+        return new Vector2(Mathf.Round(x), Mathf.Round(y));
+    }
 
     void UpdateUi()
     {

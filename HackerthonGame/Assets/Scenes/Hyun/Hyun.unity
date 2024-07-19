@@ -12114,8 +12114,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0bd0e0342ff744e9cba156112664ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData:
+    health: 100
+    moveSpeed: 0
+    stemina: 100
+    temperature: 30
+    hunger: 80
   radius: 2
   numberOfRays: 30
+  hpUi: {fileID: 0}
+  staminaUi: {fileID: 0}
+  hungerUi: {fileID: 0}
+  temperatureUi: {fileID: 0}
 --- !u!114 &309330026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50208,6 +50218,10 @@ PrefabInstance:
     - target: {fileID: 9057775954638294907, guid: 58545a921502abe4199238a3ff81276d, type: 3}
       propertyPath: m_Name
       value: Fish1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057775954638294907, guid: 58545a921502abe4199238a3ff81276d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
