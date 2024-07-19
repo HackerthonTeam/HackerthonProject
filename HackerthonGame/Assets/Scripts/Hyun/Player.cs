@@ -3,29 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.EventSystems.EventTrigger;
 [Serializable]
 public class PlayerData
 {
-    private float health;
+    [SerializeField] private float health = 100;
     public float Health { get => health; set { health = Mathf.Clamp(value, 0, 100); } }
 
-    private float moveSpeed;
-    public float MoveSpeed {get => moveSpeed; set => moveSpeed = value; }
+    [SerializeField] private float moveSpeed;
+    public float MoveSpeed {get => moveSpeed; set { moveSpeed = Mathf.Clamp(value, 0, 100); } }
 
-    private float stemina;
-    public float Stemina { get => stemina; set => stemina = value; }
+    [SerializeField] private float stemina = 100;
+    public float Stemina { get => stemina; set { stemina = Mathf.Clamp(value, 0, 100); } }
 
-    private float temperature;
-    public float Temperature { get => temperature; set => temperature = value; }
+    [SerializeField] private float temperature = 30;
+    public float Temperature { get => temperature; set { temperature = Mathf.Clamp(value, 0, 100); } }
 
-    private float hunger;
-    public float Hunger { get => hunger; set => hunger = value; }
+    [SerializeField] private float hunger = 80;
+    public float Hunger { get => hunger; set { hunger = Mathf.Clamp(value, 0, 100); } }
 }
 
 public class Player : MonoBehaviour
 {
-    PlayerData playerData = new();
+    [SerializeField] PlayerData playerData = new();
     public PlayerData PlayerData => playerData;
 
     public List<SpecialState> currentStates = new List<SpecialState>(); 
@@ -36,6 +37,12 @@ public class Player : MonoBehaviour
     private float time = 3f;
     private bool AttCool = true;
     private Vector2 dis = new Vector2();
+
+    public Image hpUi;
+    public Image staminaUi;
+    public Image hungerUi;
+    public Image temperatureUi;
+
     void Start()
     {
         angleStep = 180f / numberOfRays; // ����ĳ��Ʈ ���� ���� ���
@@ -55,6 +62,7 @@ public class Player : MonoBehaviour
 
         ManageState();
         Reduce();
+        UpdateUi();
     }
 
     void Reduce()
@@ -74,6 +82,14 @@ public class Player : MonoBehaviour
         if(IsOnWater())
         {
             playerData.Temperature += 0.05f;
+        }
+        if(playerData.Hunger <= 10)
+        {
+            playerData.Health -= 0.01f;
+        }
+        if(playerData.Temperature > 80)
+        {
+            playerData.Health -= 0.01f;
         }
     }
 
@@ -158,4 +174,12 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    void UpdateUi()
+    {
+        hpUi.color = new Color(255, 255, 255, 1 * (playerData.Health / 100));
+        staminaUi.color = new Color(255, 255, 255, 1 * (playerData.Stemina / 100));
+        hungerUi.color = new Color(255, 255, 255, 1 * (playerData.Hunger / 100));
+        temperatureUi.color = new Color(1 -  (playerData.Temperature / 100), 255, 255, 1);
+    }
 }

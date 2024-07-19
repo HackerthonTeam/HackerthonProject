@@ -126,6 +126,11 @@ public class Movement : MonoBehaviour
 
             GetComponent<Player>().PlayerData.Stemina -= 0.1f;
 
+            if(GetComponent<Player>().PlayerData.Stemina <  10)
+            {
+                StopAllCoroutines();
+            }
+
             yield return null;
         }
         animator.SetBool("IsMove", false);
