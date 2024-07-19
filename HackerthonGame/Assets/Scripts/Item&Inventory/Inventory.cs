@@ -43,6 +43,8 @@ public class Inventory : MonoBehaviour
             if(item == itemUiIndicates)
             {
                 item.ui.SetActive(true);
+                item.ui.transform.position = item.transform.position;
+                item.ui.transform.position += (player.transform.position - item.transform.position).normalized * 0.3f;
             }
             else item.ui.SetActive(false);
         }

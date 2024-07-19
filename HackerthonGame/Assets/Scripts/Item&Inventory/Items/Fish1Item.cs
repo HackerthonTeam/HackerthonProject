@@ -8,6 +8,6 @@ public class Fish1Item : Item
     {
         base.OnUsed();
 
-        player.PlayerData.Hunger += 2;
+        player.PlayerData.Hunger += 15;
     }
 }
