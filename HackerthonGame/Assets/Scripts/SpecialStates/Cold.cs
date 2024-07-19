@@ -7,8 +7,8 @@ public class Cold : SpecialState
     public Cold()
     {
         duration = 120;
-        name = "감기";
-        description = "추위를 더 많이 느끼고 기력이 감소합니다.";
+        name = "cold";
+        description = "got cold. lowwer temperature durability, lowwer stemina";
     }
 
     public override void OnAdded()
