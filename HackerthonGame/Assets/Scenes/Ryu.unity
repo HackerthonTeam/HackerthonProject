@@ -152,10 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419329a7f0a41ee4ebc212b846233f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData:
-    acquireDistance: 3
-    ui: {fileID: 0}
-    itemPos: {x: 0, y: 0}
+  acquireDistance: 3
+  ui: {fileID: 0}
+  itemPos: {x: 0, y: 0}
 --- !u!212 &595027288
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -253,8 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603d133db5faff04c9ec92d2a3142bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 0}
+  items: []
 --- !u!4 &656588902
 Transform:
   m_ObjectHideFlags: 0

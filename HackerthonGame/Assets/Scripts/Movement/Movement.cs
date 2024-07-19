@@ -24,6 +24,7 @@ public class Movement : MonoBehaviour
     public List<Node> FinalNodeList;
     public List<Vector2> movePath = new List<Vector2>();
     public bool allowDiagonal, dontCrossCorner;
+    public int searchBoundary;
 
     int sizeX, sizeY;
     Node[,] NodeArray;
@@ -170,6 +171,11 @@ public class Movement : MonoBehaviour
     public void PathFinding()
     {
         isPathFinding = true;
+
+        topRight = new Vector2Int(Mathf.RoundToInt(transform.position.x + searchBoundary), Mathf.RoundToInt(transform.position.y + searchBoundary));
+        bottomLeft = new Vector2Int(Mathf.RoundToInt(transform.position.x - searchBoundary), Mathf.RoundToInt(transform.position.y - searchBoundary));
+
+        print(topRight + " : " + bottomLeft);
 
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         sizeX = topRight.x - bottomLeft.x + 1;
